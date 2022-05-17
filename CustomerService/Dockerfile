@@ -1,18 +1,13 @@
-# FROM node:lts-alpine
-# ENV NODE_ENV=production
-# WORKDIR /usr/src/app
-# COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-# RUN npm install --production --silent && mv node_modules ../
-# COPY . .
-# EXPOSE 9000
-# RUN chown -R node /usr/src/app
-# USER node
-# CMD ["npm", "start"]
-
-FROM node:16
-WORKDIR /app
-COPY package.json /app
+FROM node:14.18-alpine AS BUILD_IMAGE
+RUN apk add --no-cache nodejs npm
+WORKDIR /customerservice
+COPY ["package.json", "./"]
 RUN npm install
-COPY . /app
+COPY . .
+
+FROM node:14.18-alpine
+WORKDIR /app
+COPY --from=BUILD_IMAGE /customerservice /app/
 EXPOSE 5000
-CMD [ "node", "server.js" ]
+ENTRYPOINT [ "npm", "run" ]
+CMD [ "start" ]
