@@ -21,7 +21,7 @@ jobs:
         docker login -u $MALINDU_DOCKER_USERNAME -p $MALINDU_DOCKER_PASSWORD
     - name: CartService docker image building...
       run: |
-        cd CartService
-        docker build . --file Dockerfile $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v0.0.1
+        cd CartService/
+        docker build . -t $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v0.0.1
     - name: Pushing build to docker hub...
       run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v0.0.1
