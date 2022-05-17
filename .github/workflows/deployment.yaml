@@ -3,6 +3,7 @@ name:  CI/CD Pipeline // CTSE ASSIGNMENT
 on:
   push:
     branches: [ master ]
+  pull_request: [ master ]
   workflow_dispatch:
 
 env:
@@ -15,10 +16,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker login
-      run: docker login -u $MALINDU_DOCKER_USERNAME -p $MALINDU_DOCKER_PASSWORD
+      run: | 
+        docker login -u $MALINDU_DOCKER_USERNAME -p $MALINDU_DOCKER_PASSWORD
     - name: CartService docker image building...
       run: |
         cd CartService
-        docker build . --file Dockerfile --tag $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
+        docker build . --file Dockerfile $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v0.0.1
     - name: Pushing build to docker hub...
-      run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
+      run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v0.0.1
