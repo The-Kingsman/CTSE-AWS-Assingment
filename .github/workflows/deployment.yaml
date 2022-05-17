@@ -11,6 +11,12 @@ env:
   MALINDU_DOCKER_USERNAME: ${{secrets.MALINDU_DOCKER_USERNAME}}
   MALINDU_DOCKER_PASSWORD: ${{secrets.MALINDU_DOCKER_PASSWORD}}
   MALINDU_DOCKER_REPOSITORY: ${{secrets.MALINDU_DOCKER_REPOSITORY}}
+  MADUKA_DOCKER_USERNAME: ${{secrets.MADUKA_DOCKER_USERNAME}}
+  MADUKA_DOCKER_PASSWORD: ${{secrets.MADUKA_DOCKER_PASSWORD}}
+  MADUKA_DOCKER_REPOSITORY: ${{secrets.MADUKA_DOCKER_REPOSITORY}}
+  AB_DOCKER_USERNAME: ${{secrets.AB_DOCKER_USERNAME}}
+  AB_DOCKER_PASSWORD: ${{secrets.AB_DOCKER_PASSWORD}}
+  AB_DOCKER_REPOSITORY: ${{secrets.AB_DOCKER_REPOSITORY}}
 
 jobs:
   CartService:
@@ -26,3 +32,32 @@ jobs:
         docker build -f ./Dockerfile -t $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY ./
     - name: Pushing build to docker hub...
       run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
+      
+  ProductService:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: | 
+        docker login -u $MADUKA_DOCKER_USERNAME -p $MADUKA_DOCKER_PASSWORD
+    - name: CartService docker image building...
+      run: |
+        cd CartService/
+        docker build -f ./Dockerfile -t $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY ./
+    - name: Pushing build to docker hub...
+      run: docker push $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY:latest
+      
+  OrderService:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: | 
+        docker login -u $AB_DOCKER_USERNAME -p $MADUKA_DOCKER_PASSWORD
+    - name: CartService docker image building...
+      run: |
+        cd CartService/
+        docker build -f ./Dockerfile -t $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY ./
+    - name: Pushing build to docker hub...
+      run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
+    
