@@ -57,7 +57,7 @@ jobs:
     - name: OrderService docker image building...
       run: |
         cd OrderService/
-        docker build -f ./Dockerfile -t $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY ./
+        docker build . --file Dockerfile --tag $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
     - name: Pushing build to docker hub...
       run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
     
