@@ -3,7 +3,8 @@ name:  CI/CD Pipeline // CTSE ASSIGNMENT
 on:
   push:
     branches: [ master ]
-  pull_request: [ master ]
+  pull_request: 
+    branches: [ master ]
   workflow_dispatch:
 
 env:
