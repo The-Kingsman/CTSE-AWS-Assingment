@@ -1,34 +1,16 @@
 const mongo = require('mongoose');
 
 const Order = new mongo.Schema({
-  order_Id: {
+  user_id: {
     type: String,
-    required: true,
   },
-  customer_Id: {
-    type: String,
-    required: true,
-  },
-  transaction_Id: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-  },
-  items: [
+  products: [
     {
       product: {
-        type: Schema.Types.ObjectId,
+        type: mongo.Schema.Types.ObjectId,
         ref: 'product',
-        required: true,
       },
-      unit: { type: Number, require: true },
+      quantity: { type: Number },
     },
   ],
 });

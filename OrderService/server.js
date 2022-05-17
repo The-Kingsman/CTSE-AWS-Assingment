@@ -4,10 +4,9 @@ const router = express.Router()
 const app = express()
 require('dotenv').config()
 
-// const teacherRoute = require('./routes/teacher.routes')
+const OrderRoute = require('./routes/OrderRoute')
 
 const cors = require('cors')
-const res = require('express/lib/response')
 
 app.use(cors());
 app.use(express.json());
@@ -25,11 +24,9 @@ connection.once('open', () => {
     console.log('Database connected!')
 })
 
-// router.use('/teacher', teacherRoute)
+router.use('/order', OrderRoute)
 
-app.use('/api', (req, res) => {
-    res.json('Test')
-})
+app.use('/api', router)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
