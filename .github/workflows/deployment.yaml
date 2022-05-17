@@ -40,9 +40,9 @@ jobs:
     - name: Docker login
       run: | 
         docker login -u $MADUKA_DOCKER_USERNAME -p $MADUKA_DOCKER_PASSWORD
-    - name: CartService docker image building...
+    - name: ProductService docker image building...
       run: |
-        cd CartService/
+        cd ProductService/
         docker build -f ./Dockerfile -t $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY ./
     - name: Pushing build to docker hub...
       run: docker push $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY:latest
@@ -54,9 +54,9 @@ jobs:
     - name: Docker login
       run: | 
         docker login -u $AB_DOCKER_USERNAME -p $AB_DOCKER_PASSWORD
-    - name: CartService docker image building...
+    - name: OrderService docker image building...
       run: |
-        cd CartService/
+        cd OrderService/
         docker build -f ./Dockerfile -t $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY ./
     - name: Pushing build to docker hub...
       run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
