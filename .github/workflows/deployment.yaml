@@ -22,6 +22,6 @@ jobs:
     - name: CartService docker image building...
       run: |
         cd CartService/
-        docker build . -t $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v1.0.1
+        docker build -f ./Dockerfile -t $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY ./
     - name: Pushing build to docker hub...
-      run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:v1.0.1
+      run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
