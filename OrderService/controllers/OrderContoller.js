@@ -2,7 +2,61 @@ const order = require('../models/Order');
 
 const getOrderById = async (req, res) => {
   await order
-    .findOne({ order_Id: req.params.id })
+    .findOne({ user_id: req.params.id })
+    .then((result) => {
+      res.json({
+        results: result,
+      });
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+};
+
+const addOrder = async (req, res) => {
+  const { user_id, products } = req.body;
+  const orderExist = await order.findOne({ user_id: user_id });
+
+  if (orderExist) {
+    await order
+      .updateOne(
+        { user_id: user_id },
+        {
+          $addToSet: { products: products },
+        }
+      )
+      .then((result) => {
+        res.json({
+          results: result,
+        });
+      });
+  } else {
+    await order
+      .create({
+        user_id: user_id,
+        products: products,
+      })
+      .then((result) => {
+        res.json({
+          results: result,
+        });
+      })
+      .catch((error) => {
+        res.status(400).send({
+          error: error,
+        });
+      });
+  }
+};
+
+const clearOrder = async (req, res) => {
+  await order
+    .updateOne(
+      { user_id: req.params.id },
+      {
+        products: [],
+      }
+    )
     .then((result) => {
       res.json({
         results: result,
@@ -13,50 +67,4 @@ const getOrderById = async (req, res) => {
     });
 };
 
-const getAllOrders = async (req, res) => {
-  await order
-    .find()
-    .then((result) => {
-      res.json({
-        results: result,
-      });
-    })
-    .catch((error) => {
-      res.send(error);
-    });
-};
-
-const createOrder = async (req, res) => {
-  const { price, status } = req.body;
-  await order
-    .create({
-      price: price,
-      status: status,
-    })
-    .then((result) => {
-      res.json({
-        results: result,
-      });
-    })
-    .catch((error) => {
-      res.send(error);
-    });
-};
-
-const deleteOrder = async (req, res) => {
-  await order
-    .findOneAndDelete({ order_Id: req.params.id })
-    .then((result) => {
-      res.json({
-        result: 'success',
-        data: result,
-      });
-    })
-    .catch((error) => {
-      res.json({
-        result: error,
-      });
-    });
-};
-
-module.exports = { getAllOrders, getOrderById, createOrder, deleteOrder };
+module.exports = { getOrderById, addOrder, clearOrder };
