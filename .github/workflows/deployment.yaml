@@ -22,17 +22,3 @@ jobs:
         docker build . --file Dockerfile --tag $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
     - name: Pushing build to docker hub...
       run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
-  
-  deploy:
-    needs: [CartService]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Configuring Azure kubernetes
-      uses: Azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: CTSE
-        resource-group: CTSE
-    - name: 
-      run: kubectl apply -f release/
