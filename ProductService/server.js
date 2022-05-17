@@ -7,7 +7,6 @@ require('dotenv').config()
 const ProductRoute = require('./routes/ProductRoute')
 
 const cors = require('cors')
-const res = require('express/lib/response')
 
 app.use(cors());
 app.use(express.json());
@@ -15,9 +14,7 @@ app.use(express.json());
 const port = process.env.PORT
 const url = process.env.URL
 
-mongo
-    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .catch((err) => console.log(err))
+mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).catch((err) => console.log(err))
 
 const connection = mongo.connection
 
