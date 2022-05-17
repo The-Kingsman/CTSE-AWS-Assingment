@@ -69,7 +69,7 @@ jobs:
     - name: Configure k8s Credentials
       uses: Azure/aks-set-context@v1
       with:
-        creds: '${{ secrets.AZURE_TOKEN }}'
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: CTSE
         resource-group: CTSE
     - name: Deploy to k8s Cluster
