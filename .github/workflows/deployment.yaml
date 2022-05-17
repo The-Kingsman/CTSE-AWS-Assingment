@@ -53,7 +53,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Docker login
       run: | 
-        docker login -u $AB_DOCKER_USERNAME -p $MADUKA_DOCKER_PASSWORD
+        docker login -u $AB_DOCKER_USERNAME -p $AB_DOCKER_PASSWORD
     - name: CartService docker image building...
       run: |
         cd CartService/
