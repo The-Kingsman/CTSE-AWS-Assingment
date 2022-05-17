@@ -7,7 +7,6 @@ require('dotenv').config()
 const ProductRoute = require('./routes/ProductRoute')
 
 const cors = require('cors')
-const res = require('express/lib/response')
 
 app.use(cors());
 app.use(express.json());
