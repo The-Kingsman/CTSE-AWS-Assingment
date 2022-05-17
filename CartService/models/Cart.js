@@ -7,7 +7,7 @@ const cart = mongo.Schema({
     },
     products: [
         {
-            product: { type: Schema.Types.ObjectId, ref: 'product', required: true },
+            product: { type: mongo.Schema.Types.ObjectId, ref: 'product', required: true },
             quantity: { type: Number, require: true }
         }
     ]

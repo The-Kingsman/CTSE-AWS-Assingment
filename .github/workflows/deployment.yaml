@@ -1,0 +1,24 @@
+name:  CI/CD Pipeline // CTSE ASSIGNMENT
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+env:
+  MALINDU_DOCKER_USERNAME: ${{secrets.MALINDU_DOCKER_USERNAME}}
+  MALINDU_DOCKER_PASSWORD: ${{secrets.MALINDU_DOCKER_PASSWORD}}
+
+jobs:
+  CartService:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker login
+      run: docker login -u $MALINDU_DOCKER_USERNAME -p $MALINDU_DOCKER_PASSWORD
+    - name: CartService docker image building...
+      run: |
+        cd CartService
+        docker build . --file Dockerfile --tag $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
+    - name: Pushing build to docker hub...
+      run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
