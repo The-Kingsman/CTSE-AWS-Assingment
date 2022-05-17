@@ -14,9 +14,7 @@ app.use(express.json());
 const port = process.env.PORT
 const url = process.env.URL
 
-mongo
-    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .catch((err) => console.log(err))
+mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).catch((err) => console.log(err))
 
 const connection = mongo.connection
 
