@@ -6,12 +6,21 @@
 			"label": "docker-build",
 			"platform": "node",
 			"dockerBuild": {
+<<<<<<< HEAD
 				"dockerfile": "${workspaceFolder}/CustomerService/Dockerfile",
 				"context": "${workspaceFolder}/CustomerService",
 				"pull": true
 			},
 			"node": {
 				"package": "${workspaceFolder}/CustomerService/package.json"
+=======
+				"dockerfile": "${workspaceFolder}/ProductService/Dockerfile",
+				"context": "${workspaceFolder}/ProductService",
+				"pull": true
+			},
+			"node": {
+				"package": "${workspaceFolder}/ProductService/package.json"
+>>>>>>> 1da83001f7d9ef64cfb11d7c62168625b990a5d9
 			}
 		},
 		{
@@ -22,7 +31,11 @@
 			],
 			"platform": "node",
 			"node": {
+<<<<<<< HEAD
 				"package": "${workspaceFolder}/CustomerService/package.json"
+=======
+				"package": "${workspaceFolder}/ProductService/package.json"
+>>>>>>> 1da83001f7d9ef64cfb11d7c62168625b990a5d9
 			}
 		},
 		{
@@ -38,7 +51,11 @@
 				}
 			},
 			"node": {
+<<<<<<< HEAD
 				"package": "${workspaceFolder}/CustomerService/package.json",
+=======
+				"package": "${workspaceFolder}/ProductService/package.json",
+>>>>>>> 1da83001f7d9ef64cfb11d7c62168625b990a5d9
 				"enableDebugging": true
 			}
 		}

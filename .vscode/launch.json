@@ -7,8 +7,13 @@
             "preLaunchTask": "docker-run: debug",
             "platform": "node",
             "node": {
+<<<<<<< HEAD
                 "package": "${workspaceFolder}/CustomerService/package.json",
                 "localRoot": "${workspaceFolder}/CustomerService"
+=======
+                "package": "${workspaceFolder}/ProductService/package.json",
+                "localRoot": "${workspaceFolder}/ProductService"
+>>>>>>> 1da83001f7d9ef64cfb11d7c62168625b990a5d9
             }
         }
     ]
