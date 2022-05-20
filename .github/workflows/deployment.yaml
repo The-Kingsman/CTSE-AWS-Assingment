@@ -58,7 +58,7 @@ jobs:
   #     run: |
   #       cd OrderService/
   #       docker build . --file Dockerfile --tag $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
-  #   - name: Pushing build to docker hub...
+  #   - name: Pushing build to docker hub
   #     run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
   
   Deployment:
