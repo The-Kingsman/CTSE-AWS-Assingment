@@ -8,6 +8,6 @@ COPY . .
 FROM node:14.18-alpine
 WORKDIR /app
 COPY --from=BUILD_IMAGE /orderservice /app/
-EXPOSE 5050
+EXPOSE 5000
 ENTRYPOINT [ "npm", "run" ]
 CMD [ "start" ]
