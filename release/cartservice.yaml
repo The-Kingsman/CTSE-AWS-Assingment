@@ -31,7 +31,7 @@ spec:
         - name: cartservice
           image: docker.io/malindupanchala/ctse_cart_service:latest
           ports:
-            - containerPort: 5001
+            - containerPort: 5000
           env:
             - name: URL
               value: mongodb+srv://DBUSER:dbuser@project.zqftq.mongodb.net/CTSEAssingementTwo?retryWrites=true&w=majority

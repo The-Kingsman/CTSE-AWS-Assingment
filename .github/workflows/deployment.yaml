@@ -1,10 +1,10 @@
-name:  CI/CD Pipeline // CTSE ASSIGNMENT
+name: CI/CD Pipeline // CTSE ASSIGNMENT
 
 on:
   push:
-    branches: [ main ]
-  pull_request: 
-    branches: [ main ]
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 env:
@@ -25,72 +25,69 @@ jobs:
   CartService:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Docker login
-      run: | 
-        docker login -u $MALINDU_DOCKER_USERNAME -p $MALINDU_DOCKER_PASSWORD
-    - name: CartService docker image building...
-      run: |
-        cd CartService/
-        docker build -f ./Dockerfile -t $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY ./
-    - name: Pushing build to docker hub...
-      run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
-      
+      - uses: actions/checkout@v2
+      - name: Docker login
+        run: |
+          docker login -u $MALINDU_DOCKER_USERNAME -p $MALINDU_DOCKER_PASSWORD
+      - name: CartService docker image building...
+        run: |
+          cd CartService/
+          docker build -f ./Dockerfile -t $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY ./
+      - name: Pushing build to docker hub...
+        run: docker push $MALINDU_DOCKER_USERNAME/$MALINDU_DOCKER_REPOSITORY:latest
+
   ProductService:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Docker login
-      run: | 
-        docker login -u $MADUKA_DOCKER_USERNAME -p $MADUKA_DOCKER_PASSWORD
-    - name: ProductService docker image building...
-      run: |
-        cd ProductService/
-        docker build -f ./Dockerfile -t $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY ./
-    - name: Pushing build to docker hub...
-      run: docker push $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY:latest
-      
+      - uses: actions/checkout@v2
+      - name: Docker login
+        run: |
+          docker login -u $MADUKA_DOCKER_USERNAME -p $MADUKA_DOCKER_PASSWORD
+      - name: ProductService docker image building...
+        run: |
+          cd ProductService/
+          docker build -f ./Dockerfile -t $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY ./
+      - name: Pushing build to docker hub...
+        run: docker push $MADUKA_DOCKER_USERNAME/$MADUKA_DOCKER_REPOSITORY:latest
+
   OrderService:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Docker login
-      run: | 
-        docker login -u $AB_DOCKER_USERNAME -p $AB_DOCKER_PASSWORD
-    - name: OrderService docker image building...
-      run: |
-        cd OrderService/
-        docker build . --file Dockerfile --tag $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
-    - name: Pushing build to docker hub
-      run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
+      - uses: actions/checkout@v2
+      - name: Docker login
+        run: |
+          docker login -u $AB_DOCKER_USERNAME -p $AB_DOCKER_PASSWORD
+      - name: OrderService docker image building...
+        run: |
+          cd OrderService/
+          docker build . --file Dockerfile --tag $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
+      - name: Pushing build to docker hub
+        run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
 
   CustomerService:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Docker login
-      run: | 
-        docker login -u $DILUSHA_DOCKER_USERNAME -p $DILUSHA_DOCKER_PASSWORD
-    - name: CustomerService docker image building...
-      run: |
-        cd CustomerService/
-        docker build . --file Dockerfile --tag $DILUSHA_DOCKER_USERNAME/$DILUSHA_DOCKER_REPOSITORY:latest
-    - name: Pushing build to docker hub
-      run: docker push $DILUSHA_DOCKER_USERNAME/$DILUSHA_DOCKER_REPOSITORY:latest
-  
+      - uses: actions/checkout@v2
+      - name: Docker login
+        run: |
+          docker login -u $DILUSHA_DOCKER_USERNAME -p $DILUSHA_DOCKER_PASSWORD
+      - name: CustomerService docker image building...
+        run: |
+          cd CustomerService/
+          docker build . --file Dockerfile --tag $DILUSHA_DOCKER_USERNAME/$DILUSHA_DOCKER_REPOSITORY:latest
+      - name: Pushing build to docker hub
+        run: docker push $DILUSHA_DOCKER_USERNAME/$DILUSHA_DOCKER_REPOSITORY:latest
+
   Deployment:
-    needs: [CartService,ProductService,OrderService,CustomerService]
+    needs: [CartService, ProductService, OrderService, CustomerService]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Echo creds
-      run: echo '${{ secrets.AZURE_CREDENTIALS }}'
-    - name: Configure k8s Credentials
-      uses: Azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: CTSE
-        resource-group: CTSE
-    - name: Deploy to k8s Cluster
-      run: kubectl apply -f release/
-    
+      - uses: actions/checkout@v2
+      - name: Configure k8s Credentials
+        uses: Azure/aks-set-context@v1
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          cluster-name: CTSE
+          resource-group: CTSE
+      - name: Deploy to k8s Cluster
+        run: kubectl apply -f release/
