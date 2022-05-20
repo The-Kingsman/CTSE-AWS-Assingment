@@ -8,8 +8,8 @@ spec:
     app: orderservice
   ports:
     - protocol: TCP
-      port: 5050
-      targetPort: 5050
+      port: 5000
+      targetPort: 5000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,7 +31,7 @@ spec:
         - name: orderservice
           image: docker.io/ab98/orderservice:latest
           ports:
-            - containerPort: 5050
+            - containerPort: 5000
           env:
             - name: URL
               value: mongodb+srv://DBUSER:dbuser@project.zqftq.mongodb.net/CTSEAssingementTwo?retryWrites=true&w=majority
