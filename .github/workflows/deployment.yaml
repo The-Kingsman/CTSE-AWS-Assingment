@@ -60,12 +60,28 @@ jobs:
   #       docker build . --file Dockerfile --tag $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
   #   - name: Pushing build to docker hub
   #     run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
+
+  # CustomerService:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Docker login
+  #     run: | 
+  #       docker login -u $DILUSHA_DOCKER_USERNAME -p $AB_DOCKER_PASSWORD
+  #   - name: OrderService docker image building...
+  #     run: |
+  #       cd OrderService/
+  #       docker build . --file Dockerfile --tag $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
+  #   - name: Pushing build to docker hub
+  #     run: docker push $AB_DOCKER_USERNAME/$AB_DOCKER_REPOSITORY:latest
   
   Deployment:
     needs: [CartService,ProductService]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Echo creds
+      run: echo '${{ secrets.AZURE_CREDENTIALS }}'
     - name: Configure k8s Credentials
       uses: Azure/aks-set-context@v1
       with:
