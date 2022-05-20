@@ -79,7 +79,7 @@ jobs:
       run: docker push $DILUSHA_DOCKER_USERNAME/$DILUSHA_DOCKER_REPOSITORY:latest
   
   Deployment:
-    needs: [CartService,ProductService]
+    needs: [CartService,ProductService,OrderService,CustomerService]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
